@@ -1,16 +1,11 @@
 from django.db import models
 from products.models import Product
-from rest_framework import serializers
+from users.models import User
 
 # Create your models here.
 class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
     products = models.ManyToManyField(Product)
+    total = models.IntegerField()
 
     created_at = models.DateTimeField(auto_now_add=True)
-
-    # def save(self, *args, **kwargs):
-    #     super(Order, self).save(*args, **kwargs)
-
-    #     for product in self.products.all():
-    #         product.sold += 1
-    #         product.save()

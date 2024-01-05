@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
 from .models import Order
 from .serializers import OrderSerializer
@@ -11,21 +10,21 @@ from rest_framework import status
 class OrderView(ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    # lookup_field = "id"
 
     def create(self, request, *args, **kwargs):
-        products_ids = request.data.get("products", [])
+        serializer = OrderSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+        products_ids = request.data.get("products", [])
+        total = 0
         for product_id in products_ids:
             product = Product.objects.filter(id=product_id).first()
-            if product:
-                product.sold += 1
-                product.save()
-            else:
-                return Response({"message": f"Produto com ID {product_id} não encontrado"}, status=status.HTTP_404_NOT_FOUND)
+            product.sold += 1
+            product.save()
+            total += product.price
 
-        new_order = Order.objects.create()
-
+        new_order = Order.objects.create(total=total)
         new_order.products.add(*products_ids)
 
         serializer = self.get_serializer(new_order)
