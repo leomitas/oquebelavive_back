@@ -114,15 +114,24 @@ WSGI_APPLICATION = '_oquebelavive.wsgi.application'
 
 DATABASES = {
     'default': {
-        "ENGINE": "django.db.backends.postgresql",
-        "USER": os.getenv("POSTGRES_USERNAME"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
-        "NAME": os.getenv("POSTGRES_DB_NAME"),
-        "HOST": os.getenv("POSTGRES_DB_HOST"),
-        "PORT": os.getenv("POSTGRES_DB_PORT"),
+        "ENGINE": "django.db.backends.mysql",
+        "USER": 'leomitas',
+        "PASSWORD": '123456',
+        "NAME": 'oquebelavive',
+        "HOST": '127.0.0.1',
+        "PORT": '3307',
+
+        # "USER": os.getenv("POSTGRES_USERNAME"),
+        # "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        # "NAME": os.getenv("POSTGRES_DB_NAME"),
+        # "HOST": os.getenv("POSTGRES_DB_HOST"),
+        # "PORT": os.getenv("POSTGRES_DB_PORT"),
+        # 'OPTIONS': {
+        #   'init_command': "SER sql_mode='STRICT_TRANS_TABLES'"
+        # }
     }
 }
-DATABASE_URL = os.getenv("DATABASE_URL")
+# DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

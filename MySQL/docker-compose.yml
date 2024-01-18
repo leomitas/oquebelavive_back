@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  # database:
+  #   build: .
+  #   ports:
+  #     - '3307:3306'
+  db:
+    image: mysql:latest
+    container_name: some-mysql
+    environment:
+      MYSQL_DATABASE: oquebelavive
+      MYSQL_USER: leomitas
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - '3307:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
+    is_superuser = models.BooleanField(null=True, default=False)
 
     first_name = None
     last_name = None
